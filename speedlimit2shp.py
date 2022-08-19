@@ -2,8 +2,12 @@ import nvdbapiv3
 import geopandas as gpd
 import pandas as pd 
 from shapely import wkt 
+from datetime import date, datetime 
 
 if __name__ == '__main__': 
+
+    # How much time do we use? 
+    t0 = datetime.now()
 
     # Searching for 
     mySearchObject = nvdbapiv3.nvdbFagdata( 105 )
@@ -14,7 +18,7 @@ if __name__ == '__main__':
 
     # Bounding box for test area 
     # mySearchObject.filter( {'kartutsnitt' : '11.04189329,58.96015542,11.56670696,59.30649984' } )
-    mySearchObject.filter( {'kartutsnitt' : '283134.63352143,6554956.00500561,293507.29709016,6561801.31869616' } ) 
+    # mySearchObject.filter( {'kartutsnitt' : '283134.63352143,6554956.00500561,293507.29709016,6561801.31869616' } ) 
 
 
     # Converting to Pandas DataFrame 
@@ -44,4 +48,7 @@ if __name__ == '__main__':
     # Writing data to esri shapefile
     myGDF[columns].to_file( 'nvdbspeedlimit.shp')
 
-    print( list( myGDF.columns ) )
+    # print( list( myGDF.columns ) )
+
+    t1 = datetime.now()
+    print( t1-t0 )

@@ -1,26 +1,46 @@
-# nvdbspeedlimit
-Example code to extract data from NVDB, speed limit data being case in point 
+# How can you get Norwegian speed limit data?
 
+How can you get Norwegian speed limit data from the Norwegian Road database (Nasjonal vegdatabank, shorthand NVDB)? This database is maintianed by a joint effort of the Norwegian Public Road administratin [NPRA](https://www.vegvesen.no/en/?lang=en)
+and the [Norwegian Mapping Authority](https://kartverket.no/en)
 
-# Installation 
+Various distribution channels and products exists for NVDB data. Like any other data in NVDB, speed limits can be downloaded directly from the NVDB api. But the NPRA and the Norwegian Mapping authorities have a long history of delivering vendor-independent road network products (for, among other things,  routing applications). Speed limit data are of course included. 
 
-Requires the python library [geopandas](https://geopandas.org/en/stable/). A quick and easy way is to use the trusty old  `pip install` in your shell:   
+The data are available through the [Norwegian Licence for Open Government Data](https://data.norge.no/nlod/en/). Please choose among the following options:
 
-```
-pip install geopandas 
-```
-This is perfect for throwaway environments, such as google cloud platform, or if you don't really use python much at all. 
+## Grabbing data directly from the NVDB api 
 
-However, if you're a heavy python user and your python installation has a long life, sucn as your own personal or work computer, we recommend that you go the somewhat more complex route of creating so called `environments` because long term use of `pip install` will at some point create version conflicts. This occurs when the package you want to install today needs a different version of some external 3rd party library than the one you have installed on your system. 
+The [NVDB api](https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/) is a REST api where you can grab any data from NVDB, including speed limits, road networks and a bunch of other things. Unfortunately, the documentation is in Norwegian. We've written some English summaries [here](https://www.vegdata.no/2014/02/19/a-little-note-to-oor-our-international-fans/) and [here](https://nvdbtransportportal.vegdata.no/), we hope you'll find them helpful. 
 
-> Example: Geopandas wants to install the package xyzservices version 2022.6.0. Some random library you installed two years ago will not work with version 2022.6.0, but needs the older version that already exists on your system. Solving version conflicts is not for the faint at hearth, which is why creating separate environments is highly recommended. Not only does it prevents version conflicts, it also improves the chance  that your code will be reusable in the future. 
+[More details, caveats and quirks on the NVDB api](./grabbing-from-NVDBapi.md)
 
-Python has different methods for virtual environments, but the most popular within the data science community is to use the [conda package manager](https://docs.conda.io/en/latest/). And the most popular option for installing conda is to install the [anaconda python distribution](https://www.anaconda.com/products/distribution). 
+[Our python code exampe](./grab-from-nvdbapi-w-python.md)
 
+## Downloading NPRA routing application data 
 
-```bash
-conda create -n nvdbspeedlimit -c conda-forge geopandas
-conda activate nvdbspeedlimit
-```
+The NPRA runs its own routing application. Although the data structure is tailored to the specific quirks of that application, the network data we feed into it are in an open, not-too-obfuscated data structure. Speed limits are stored as attributes `speedfw` (speed forward) and `speedbw` (speed backwards) on the links themselves, in the table `ruttger_link_geom`. _Forward_ and _backward_ refer to the direction of travel along the link, so you can have different speed limits for different directions on the same link. 
 
+The newest NPRA routing application data can be downloaded from the FTP server ftp://vegvesen.hostedftp.com/~StatensVegvesen/vegnett/ , or alternatively from the [geonorge portal](./dowloading-from-geonorge-portal.md)
 
+The spatiaLite (sqlite) format is recommended, this is the one we use ourselves. The file geodatabase format is provided "as is", as a courtesy for Esri users.  
+
+## Downloading Elveg road network data set (will be replaced by Elveg 2.0)
+
+This data product has in fact a longer history than our road data base. The format is the norwegian text based format [SOSI dot notation](https://en.wikipedia.org/wiki/SOSI), which has a long history for data exchange within the Norwegian GIS community. See [downloading from geonorge portal](./dowloading-from-geonorge-portal.md) for instructions on how to get this data set. 
+
+## Dowload Elveg 2.0 in GML format (experimental)
+
+Moving away from the old trusty sosi dot text format, the NPRA and the Norwegian Mapping Authority are developing a new vendor independent network data set called Elveg 2.0. There are several improvement to the logic and structure of the data, finally available in the [OGC](https://www.ogc.org/)-compliant format [GML - Geograpy Markup Language](https://en.wikipedia.org/wiki/Geography_Markup_Language). 
+
+See [downloading from geonorge portal](./dowloading-from-geonorge-portal.md) for instructions on how to get this data set. 
+
+# Why can't you just give us a shapefile? How hard can it be? 
+
+Not hard at all. But then the burden on keeping your system updated will be on NPRA. 
+
+We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. The NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products for free under the [NLOD license](https://data.norge.no/nlod/en/).   
+
+We will do our outmost to ensure that the process of grabbing Norwegian speed limit data can be automated in a robust pipeline. We are happy to discuss any suggestion on how to improve our services and data products. 
+
+# Do you have the right road numbers? 
+
+Road numbers are automatically included in all data products and pipelines described here. 
