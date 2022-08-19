@@ -1,18 +1,32 @@
 # Python code - grab data from the NVDB api 
 
-The python script `speedlimit2shp.py` will download speed limit data from NVDB api and produce a shapefile with speed limit data. 
+The python script `speedlimit2shp.py` will download speed limit data from NVDB api and produce a shapefile with speed limit data, as well as road numbers and some other details. The shape file contains these attributes: 
 
-# MORE TO BE WRITTEN, what about road nubmers and so on.
 
-### Installation 
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| SpeedLim  | Integer | The speed limit in kilometers per hour | 
+| RoadCat   | Text | A single character describing the road category: E,R,F,K,P or S | 
+| RoadNum   | Text | The combination of road category and road number, for example E6 or F450 |
+| linkID    | Integer | The Id of the NVDB road link sequence that this object belongs to | 
+| linkFrom  | Float | Linear reference, the starting position of this feature along this NVDB road link seqence | 
+| linkTo    | Float | Linear reference, the end position of this feature along this NVDB road link sequence | 
+| nvdbId    | Integer | The ID of the NVDB feature. Please note that many features are divided into smaller segment, so NVDB ID won't be unique within this data set. | 
+| versjon   | Integer | The version number of this version of this NVDB feature | 
 
-Requires the python library [geopandas](https://geopandas.org/en/stable/). A quick and easy way is to use the trusty old  `pip install` in your shell:   
+Please see our notes about [quirks and caveats](./grabbing-from-NVDBapi.md) for mapping between center line topology and individual lanes.
+
+# Installation 
+
+The script `speedlimit2shp.py` requires the two other python files `apiforbindelse.py` and  `nvdbapiv3.py` in this repository to be present at the python search path (just put them all in the same folder). These two files are maintained in this repos [nvdbapi-v3](https://github.com/LtGlahn/nvdbapi-V3)
+
+The script also requires that the the python library [geopandas](https://geopandas.org/en/stable/) is installed on the system. A quick and easy way is to use the trusty old  `pip install` in your shell:   
 
 ```
 pip install geopandas 
 ```
 
-**This installation method is perfect for throwaway environments, such as google cloud platform**, or if you otherwise don't really use python. 
+***This installation method is perfect for throwaway environments, such as google cloud platform***, or if you otherwise don't really use python that frequent. 
 
 However, if you're a heavy python user and your python installation has a long life, sucn as your own personal or work computer, we recommend that you go the somewhat more complex route of creating so called `environments` because long term use of `pip install` will at some point create version conflicts. This occurs when the package you want to install today needs a different version of some external 3rd party library than the one you have installed on your system. 
 

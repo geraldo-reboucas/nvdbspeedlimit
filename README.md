@@ -39,8 +39,4 @@ Not hard at all. But then the burden on keeping your system updated will be on N
 
 We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. The NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products for free under the [NLOD license](https://data.norge.no/nlod/en/).   
 
-We will do our outmost to ensure that the process of grabbing Norwegian speed limit data can be automated in a robust pipeline. We are happy to discuss any suggestion on how to improve our services and data products. 
-
-# Do you have the right road numbers? 
-
-Road numbers are automatically included in all data products and pipelines described here. 
+We will do our outmost to ensure that the process of grabbing Norwegian speed limit data (all other road related data) can be automated in a robust pipeline. We are happy to discuss any suggestion on how to improve our services and data products. 
