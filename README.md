@@ -11,7 +11,7 @@ The data are available through the [Norwegian Licence for Open Government Data](
 
 The [NVDB api](https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/) is a REST api where you can grab any data from NVDB, including speed limits, road networks and a bunch of other things. Unfortunately, the documentation is in Norwegian. We've written some English summaries [here](https://www.vegdata.no/2014/02/19/a-little-note-to-oor-our-international-fans/) and [here](https://nvdbtransportportal.vegdata.no/), we hope you'll find them helpful. 
 
-There are also some quirks involved in mapping from center line representation to individual lanes, eg roads where the traffic in oposite directions are physically separated, but we still store speed limit data on the abstract "center line"  somewhere mid between the physical lanes. [More details on these quirks when using data from the NVDB api](./grabbing-from-NVDBapi.md). If this doesn't bother you - fine, the NVDB api is by far the most modern and efficient method to keep your system up to date, including fetching only daily updates using the parameter `endret_etter=<ISO datetime string>`
+There are also some quirks involved in mapping from center line representation to individual lanes, eg roads where the traffic in oposite directions are physically separated, but we still store speed limit data on the abstract "center line"  somewhere mid between the physical lanes. [More details on these quirks when using data from the NVDB api](./grabbing-from-NVDBapi.md). If this doesn't bother you - fine, the NVDB api is by far the most modern and efficient method to keep your system up to date, including fetching only daily updates using the parameter `endret_etter=<ISO datetime string>`. 
 
 [Our python code exampe](./grab-from-nvdbapi-w-python.md)
 
@@ -25,7 +25,7 @@ The newest NPRA routing application data can be downloaded from the FTP server f
 
 The spatiaLite (sqlite) format is recommended, this is the one we use ourselves. It is eaily read into tools like [QGIS]() and [FME (feature Manipulation Engine)](https://safe.com), both of these can be used to transform into shape files (and a bunch of other formats), in your favorite coordinate system. Lots of other tools can be used for spatialite. Surprisingly, the spatiaLite support in Python has detoriated: It's doable, but fiddly.
 
-The file geodatabase format is provided as a courtesy for Esri users, but is just a rough conversion using the tool [FME](https://safe.com). 
+The file geodatabase format is a rough 1:1 format translation using the tool [FME](https://safe.com), provided as a courtesy for Esri users. 
 
 # Option 3: Downloading monthly Elveg road network data set (will be replaced by Elveg 2.0)
 
@@ -39,7 +39,7 @@ See [downloading from geonorge portal](./dowloading-from-geonorge-portal.md) for
 
 # Why can't you just give us a shapefile? How hard can it be? 
 
-Not hard at all, probably less than 30 minutes from start to finish (grab the latest route application network data, convert into a shapefile and share it). But then the burden on keeping **your** system updated will be on NPRA, from now on and untill eternernity.
+Not hard at all, probably less than 30 minutes from start to finish (grab the latest route application network data, convert into a shapefile and share it). **But then the burden on keeping ***your*** system updated will be on NPRA**, from now on and untill eternernity.
 
 Your system means it is your responsibility to feed it freshly updates. We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. To that end, the NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products, which are available for free under the [NLOD license](https://data.norge.no/nlod/en/).   
 

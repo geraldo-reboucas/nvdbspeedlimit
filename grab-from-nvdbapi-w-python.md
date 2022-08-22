@@ -26,7 +26,7 @@ The script also requires that the the python library [geopandas](https://geopand
 pip install geopandas 
 ```
 
-## **The pip installation method is perfect for throwaway environments, such as google cloud platform**, or if you otherwise don't really use python that frequent. 
+> **The pip installation method is perfect for throwaway environments, such as google cloud platform**, or if you otherwise don't really use python that frequent. 
 
 However, if you're a heavy python user and your python installation has a long life, sucn as your own personal or work computer, we recommend that you go the somewhat more complex route of creating so called `environments` because long term use of `pip install` will at some point create version conflicts. This occurs when the package you want to install today needs a different version of some external 3rd party library than the one you have installed on your system. 
 

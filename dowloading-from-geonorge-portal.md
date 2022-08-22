@@ -9,7 +9,7 @@ Please chose the English language option, found on the iten _Meny_ (menu) on the
 
 # Speed limit data / routing application data 
 
-All these NVDB road network products are updated approximtely monthly except January and August. Please look for fresh values in the Atom feed date tag "Updated" in the individual Atom feed entry. 
+All these NVDB road network products are updated approximtely monthly except January and August. Please look for fresh values in the Atom feed date tag "Updated" in the individual Atom feed entry. Usually, the Atom feed will contain one feed for the entire national data set (Norwegian _"Landsdekkende"_), but it may also have individual entries for each county (Norwegian _"Fylke"_). 
 
 | Description | Format | Name and link to metadata | Atom feed |  
 |-------------|--------|--------------------------------|-----------| 
