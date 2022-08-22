@@ -7,27 +7,31 @@ Various distribution channels and products exists for NVDB data. Like any other 
 
 The data are available through the [Norwegian Licence for Open Government Data](https://data.norge.no/nlod/en/). Please choose among the following options:
 
-## Grabbing data directly from the NVDB api 
+# Option 1. Grabbing data directly from the NVDB api 
 
 The [NVDB api](https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/) is a REST api where you can grab any data from NVDB, including speed limits, road networks and a bunch of other things. Unfortunately, the documentation is in Norwegian. We've written some English summaries [here](https://www.vegdata.no/2014/02/19/a-little-note-to-oor-our-international-fans/) and [here](https://nvdbtransportportal.vegdata.no/), we hope you'll find them helpful. 
 
-[More details, caveats and quirks on the NVDB api](./grabbing-from-NVDBapi.md)
+There are also some quirks involved in mapping from center line representation to individual lanes, eg roads where the traffic in oposite directions are physically separated, but we still store speed limit data on the abstract "center line"  somewhere mid between the physical lanes. [More details on these quirks when using data from the NVDB api](./grabbing-from-NVDBapi.md). If this doesn't bother you - fine, the NVDB api is by far the most modern and efficient method to keep your system up to date, including fetching only daily updates using the parameter `endret_etter=<ISO datetime string>`
 
 [Our python code exampe](./grab-from-nvdbapi-w-python.md)
 
-## Downloading NPRA routing application data 
+# Option 2: Downloading monthly updates of NPRA routing application data 
 
-The NPRA runs its own routing application. Although the data structure is tailored to the specific quirks of that application, the network data we feed into it are in an open, not-too-obfuscated data structure. Speed limits are stored as attributes `speedfw` (speed forward) and `speedbw` (speed backwards) on the links themselves, in the table `ruttger_link_geom`. _Forward_ and _backward_ refer to the direction of travel along the link, so you can have different speed limits for different directions on the same link. 
+The NPRA runs its own routing application, and we update it with new network data about monthly (except for summer and Christmas holidays). Although the data structure is tailored to the specific quirks of that application, the network data we feed into it are in an open, not-too-obfuscated data structure. And these data are mapped to the correct topology level, so none of the quirks described for NVDB api data apply here.
+
+Speed limits are stored as attributes `speedfw` (speed forward) and `speedbw` (speed backwards) on the links themselves, in the table `ruttger_link_geom`. _Forward_ and _backward_ refer to the direction of travel along the link, so you can have different speed limits for different directions on the same link. You may also have a peek on the attribute `oneway`, which describes the possible allowed direction of travels. Values are  `FT` _from-to_, i.ek forward, `TF`,  _to-from_, i.e. backward or `B` for both directions. The 
 
 The newest NPRA routing application data can be downloaded from the FTP server ftp://vegvesen.hostedftp.com/~StatensVegvesen/vegnett/ , or alternatively from the [geonorge portal](./dowloading-from-geonorge-portal.md)
 
-The spatiaLite (sqlite) format is recommended, this is the one we use ourselves. The file geodatabase format is provided "as is", as a courtesy for Esri users.  
+The spatiaLite (sqlite) format is recommended, this is the one we use ourselves. It is eaily read into tools like [QGIS]() and [FME (feature Manipulation Engine)](https://safe.com), both of these can be used to transform into shape files (and a bunch of other formats), in your favorite coordinate system. Lots of other tools can be used for spatialite. Surprisingly, the spatiaLite support in Python has detoriated: It's doable, but fiddly.
 
-## Downloading Elveg road network data set (will be replaced by Elveg 2.0)
+The file geodatabase format is provided as a courtesy for Esri users, but is just a rough conversion using the tool [FME](https://safe.com). 
+
+# Option 3: Downloading monthly Elveg road network data set (will be replaced by Elveg 2.0)
 
 This data product has in fact a longer history than our road data base. The format is the norwegian text based format [SOSI dot notation](https://en.wikipedia.org/wiki/SOSI), which has a long history for data exchange within the Norwegian GIS community. See [downloading from geonorge portal](./dowloading-from-geonorge-portal.md) for instructions on how to get this data set. 
 
-## Dowload Elveg 2.0 in GML format (experimental)
+# Option 4: Dowload Elveg 2.0 in GML format (experimental, will replace old Elveg)
 
 Moving away from the old trusty sosi dot text format, the NPRA and the Norwegian Mapping Authority are developing a new vendor independent network data set called Elveg 2.0. There are several improvement to the logic and structure of the data, finally available in the [OGC](https://www.ogc.org/)-compliant format [GML - Geograpy Markup Language](https://en.wikipedia.org/wiki/Geography_Markup_Language). 
 
@@ -35,8 +39,8 @@ See [downloading from geonorge portal](./dowloading-from-geonorge-portal.md) for
 
 # Why can't you just give us a shapefile? How hard can it be? 
 
-Not hard at all. But then the burden on keeping your system updated will be on NPRA. 
+Not hard at all, probably less than 30 minutes from start to finish (grab the latest route application network data, convert into a shapefile and share it). But then the burden on keeping **your** system updated will be on NPRA, from now on and untill eternernity.
 
-We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. The NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products for free under the [NLOD license](https://data.norge.no/nlod/en/).   
+Your system means it is your responsibility to feed it freshly updates. We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. To that end, the NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products, which are available for free under the [NLOD license](https://data.norge.no/nlod/en/).   
 
 We will do our outmost to ensure that the process of grabbing Norwegian speed limit data (all other road related data) can be automated in a robust pipeline. We are happy to discuss any suggestion on how to improve our services and data products. 
