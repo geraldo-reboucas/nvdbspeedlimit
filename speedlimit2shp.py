@@ -20,6 +20,14 @@ if __name__ == '__main__':
     # mySearchObject.filter( {'kartutsnitt' : '11.04189329,58.96015542,11.56670696,59.30649984' } )
     # mySearchObject.filter( {'kartutsnitt' : '283134.63352143,6554956.00500561,293507.29709016,6561801.31869616' } ) 
 
+    #################### 
+    ## Only fetching fresh data updates (in Norwegian time zone)
+    # mySearchObject.filter( { 'endret_etter' : '2022-08-22T06:12:31' })
+    ## PLEASE NOTE that this option will produce some false positives: Sometimes, speed 
+    ## limit  data will be  flagged as "changed" because there are edits to the  
+    ## underlying  road network or the the objects relating to the road reference system
+    ## (or changes to any of the other objects used in our indexing procedure). 
+
 
     # Converting to Pandas DataFrame 
     myDataFrame = pd.DataFrame( mySearchObject.to_records( ))
