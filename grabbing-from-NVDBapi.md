@@ -39,7 +39,7 @@ As an example, these two NVDB speed limit objects
 | [642921494](https://nvdbapiles-v3.atlas.vegvesen.no/vegobjekter/105/642921494/3.json) | 80 km/h | 1 | Nortward bound   |
 | [642921495](https://nvdbapiles-v3.atlas.vegvesen.no/vegobjekter/105/642921495/1.json)  | 60 km/h  | 2  | Southward bound  |
 
-speed limit 80 and  speed limit 60 have identical geometry, marked with red in the map below. [View the map online in our web application "vegkart"](https://vegkart.atlas.vegvesen.no/#kartlag:geodata/@218789,6689511,13/hva:!(id~105)~/hvor:(vegsystemreferanse~!RV7S3D1M87-425)~)
+speed limit 80 and  speed limit 60 have identical geometry, marked with green in the map below. [View the map online in our web application "vegkart"](https://vegkart.atlas.vegvesen.no/#kartlag:geodata/@218789,6689511,13/hva:!(id~105)~/hvor:(vegsystemreferanse~!RV7S3D1M87-425)~)
 
 ![Double speed limit](./pics/rv7differentSpeedLimits.png)
 
