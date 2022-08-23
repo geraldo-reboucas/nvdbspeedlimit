@@ -41,7 +41,7 @@ See [downloading from geonorge portal](./dowloading-from-geonorge-portal.md) for
 
 Not hard at all, probably less than 30 minutes from start to finish (grab the latest route application network data, convert into a shapefile and share it). **But then the burden on keeping ***your*** system updated will be on NPRA**, from now on and untill eternernity.
 
-Your system means it is your responsibility to feed it freshly updates. We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. To that end, the NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products, which are available for free under the [NLOD license](https://data.norge.no/nlod/en/).   
+Your system means it is your responsibility to feed it freshly updates. We at NPRA will happily provide extensive guidance on how you can make that happen - with special emphasis on the "you make it happen" - part. To that end, the NPRA and the Norwegian Mapping Authorities strives to continuosly improve NVDB-related services (NVDB api) and data products, which are available for free under the [NLOD license](https://data.norge.no/nlod/en/). 
 
 We will do our outmost to ensure that the process of grabbing Norwegian speed limit data (all other road related data) can be automated in a robust pipeline. We are happy to discuss any suggestion on how to improve our services and data products. 
 
