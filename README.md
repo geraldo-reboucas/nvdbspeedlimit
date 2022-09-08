@@ -19,7 +19,21 @@ There are also some quirks involved in mapping from center line representation t
 
 The NPRA runs its own routing application, and we update it with new network data about monthly (except for summer and Christmas holidays). Although the data structure is tailored to the specific quirks of that application, the network data we feed into it are in an open, not-too-obfuscated data structure. And these data are mapped to the correct topology level, so none of the quirks described for NVDB api data apply here.
 
-Speed limits are stored as attributes `speedfw` (speed forward) and `speedbw` (speed backwards) on the links themselves, in the table `ruttger_link_geom`. _Forward_ and _backward_ refer to the direction of travel along the link, so you can have different speed limits for different directions on the same link. You may also have a peek on the attribute `oneway`, which describes the possible allowed direction of travels. Values are  `FT` _from-to_, i.ek forward, `TF`,  _to-from_, i.e. backward or `B` for both directions. The 
+### Speed limit directionality
+
+Speed limits are stored as attributes `speedfw` (speed forward) and `speedbw` (speed backwards) on the links themselves, in the table `ruttger_link_geom`. _Forward_ and _backward_ refer to the direction of travel along the link, so you can have different speed limits for different directions on the same link. By `forward` we imply the direction defined by the geometry, i.e. you go forward by travelling from the starting point of the line to the last point of the line.  You may also have a peek on the attribute `oneway`, which describes the possible allowed direction of travels. Values are  `FT` _from-to_, i.ek forward, `TF`,  _to-from_, i.e. backward or `B` for both directions. 
+
+ Here's a special case that seems weird at first glance, but actually isn't. At [this particular part of E18](https://vegkart.atlas.vegvesen.no/#kartlag:geodata/@237215,6585574,15/hva:!(id~105)~/hvor:(vegsystemreferanse~!EV18)~) we have 110 km/h travelling northwards, but 100 km/h travelling southwards. Direction of travel is indicated by the fat green arrows (rigthmost lane driving north, leftmost lane driving south), whereas blue lines with red arrows show the direction of the links in question.  
+
+ ![Speed limit directionality example](./pics/speedlimit-directionality.png)
+
+Here, the geometry of both links points southwards (red arrows), and we use the `oneway` attribute to indicate the allowed direction of travel (green arrows)
+  * The northbound lane will have `oneway = TF` (To-From), i.e. it can only be traversed in the reverse direction. So the `speedfw` attribute should be ignored, and the attribute `speedbw = 110` is used. 
+  * The southbound lane will have `oneway = FT` (From-To), i.e. it can only be traversed in the forward direction. So the `speedfw = 100` is the relevant value, and the `speedbw` should be ignored. 
+
+For the inquisitive mind, we may reveal that the value 50 km/h is substituted by our production system as a default value wherever we may find gaps in the original NVDB data. There are no data gaps here, but the substition still happens. 
+
+### Downloading routing application data
 
 The newest NPRA routing application data can be downloaded from the FTP server ftp://vegvesen.hostedftp.com/~StatensVegvesen/vegnett/ , or alternatively from the [geonorge portal](./dowloading-from-geonorge-portal.md)
 
