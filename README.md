@@ -33,9 +33,12 @@ Here, the geometry of both links points southwards (red arrows), and we use the 
 
 For the inquisitive mind, we may reveal that the value 50 km/h is substituted by our production system as a default value wherever we may find gaps in the original NVDB data. There are no data gaps here, but the substition still happens. 
 
-### Road classification - To be written
+### Road classification
 
-The road class attribute `
+The road class attribute `roadclass` is a number ranging from 0 (Motorway) to 9 (little used residential or forest roads). We use this attribute in our own routing application, always striving to connect to and stay on the best quality (lowest number) for the majority of the route. The attribute `level`, ranging from 0 (important/best quality roads) to 3 (residential), is an older and now obsolete classification. 
+
+The attribute `routeid` is the unique link sequence ID in our road data base. Together with our non-dimmensional linear reference system (attributes `from_measure` and `to_measure` we have a persistent identifier to the NVDB road network. _(We don't delete link sequences in NVDB, we just give them a termination date, so the reference is still valid even if this particular road may cease to exists)._ 
+
 
 ### Downloading routing application data
 
