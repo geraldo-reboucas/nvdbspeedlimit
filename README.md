@@ -33,6 +33,10 @@ Here, the geometry of both links points southwards (red arrows), and we use the 
 
 For the inquisitive mind, we may reveal that the value 50 km/h is substituted by our production system as a default value wherever we may find gaps in the original NVDB data. There are no data gaps here, but the substition still happens. 
 
+### Road classification - To be written
+
+The road class attribute `
+
 ### Downloading routing application data
 
 The newest NPRA routing application data can be downloaded from the FTP server ftp://vegvesen.hostedftp.com/~StatensVegvesen/vegnett/ , or alternatively from the [geonorge portal](./dowloading-from-geonorge-portal.md)
